@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UniGuide – Canadian University Planning for High School Students</title>
+  <style>
+    /* ──────────────── RESET & BASE ──────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red:    #C8102E;
+      --white:  #FFFFFF;
+      --navy:   #1A2A4A;
+      --navy2:  #243558;
+      --accent: #E8B84B;
+      --light:  #F4F7FC;
+      --grey:   #6B7A99;
+      --border: #DDE3F0;
+      --radius: 14px;
+      --shadow: 0 4px 24px rgba(26,42,74,0.10);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--light);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    /* ──────────────── NAV ──────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.5rem; font-weight: 800; color: var(--white);
+      text-decoration: none; letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,0.80); font-size: 0.92rem; font-weight: 500;
+      text-decoration: none; padding: 6px 14px; border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .nav-cta {
+      background: var(--red) !important; color: #fff !important;
+      font-weight: 700 !important; padding: 8px 20px !important;
+      border-radius: 8px !important;
+    }
+    .nav-cta:hover { background: #a00d24 !important; }
+
+    /* ──────────────── HERO ──────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1e3a6e 100%);
+      color: #fff; text-align: center;
+      padding: 100px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(232,184,75,0.18);
+      border: 1px solid rgba(232,184,75,0.4);
+      color: var(--accent); font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 50px; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900; line-height: 1.15;
+      margin-bottom: 20px; max-width: 800px; margin-inline: auto;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 1.15rem; color: rgba(255,255,255,0.80);
+      max-width: 600px; margin: 0 auto 36px;
+    }
+    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--red); color: #fff;
+      padding: 14px 32px; border-radius: 10px;
+      font-size: 1rem; font-weight: 700;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #a00d24; transform: translateY(-2px); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: #fff; padding: 14px 32px; border-radius: 10px;
+      font-size: 1rem; font-weight: 700;
+      text-decoration: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 40px;
+      margin-top: 56px; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 900; color: var(--accent); }
+    .stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ──────────────── SECTION WRAPPER ──────────────── */
+    section { padding: 80px 24px; }
+    .container { max-width: 1160px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900; line-height: 1.2;
+      margin-bottom: 14px; color: var(--navy);
+    }
+    .section-sub {
+      font-size: 1.05rem; color: var(--grey);
+      max-width: 560px; margin-bottom: 52px;
+    }
+
+    /* ──────────────── HOW IT WORKS ──────────────── */
+    #how { background: var(--white); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+    .step-card {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px 24px;
+      position: relative; transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .step-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--navy); color: #fff;
+      font-size: 1.1rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .step-card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+    .step-card p { font-size: 0.92rem; color: var(--grey); }
+
+    /* ──────────────── FEATURES GRID ──────────────── */
+    #features { background: var(--light); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px 28px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .feature-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+    .feature-icon {
+      font-size: 2.2rem; margin-bottom: 16px;
+      width: 58px; height: 58px;
+      background: var(--light); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .feature-card h3 { font-size: 1.12rem; font-weight: 800; margin-bottom: 10px; }
+    .feature-card p { font-size: 0.93rem; color: var(--grey); line-height: 1.65; }
+    .feature-tag {
+      display: inline-block; margin-top: 14px;
+      background: var(--light); border: 1px solid var(--border);
+      color: var(--navy); font-size: 0.75rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 50px; letter-spacing: 0.5px;
+    }
+    .feature-tag.new { background: #FFF4E0; border-color: #F7C948; color: #8B6000; }
+    .feature-tag.core { background: #E8F0FB; border-color: #A9C2F0; color: #1A2A4A; }
+
+    /* ──────────────── QUIZ PREVIEW ──────────────── */
+    #quiz-preview { background: var(--navy); color: #fff; }
+    #quiz-preview .section-title { color: #fff; }
+    #quiz-preview .section-sub { color: rgba(255,255,255,0.65); }
+    .quiz-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .quiz-wrapper { grid-template-columns: 1fr; } }
+    .quiz-ui {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius); padding: 32px;
+    }
+    .quiz-progress { margin-bottom: 24px; }
+    .progress-bar-bg {
+      background: rgba(255,255,255,0.12);
+      border-radius: 50px; height: 6px; margin-top: 8px;
+    }
+    .progress-bar-fill {
+      background: var(--accent); border-radius: 50px;
+      height: 6px; width: 33%;
+    }
+    .quiz-question { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+    .quiz-option {
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 10px; padding: 12px 18px;
+      margin-bottom: 10px; font-size: 0.95rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .quiz-option:hover, .quiz-option.selected {
+      background: rgba(232,184,75,0.18);
+      border-color: var(--accent); color: var(--accent);
+    }
+    .quiz-nav { margin-top: 22px; display: flex; justify-content: flex-end; }
+    .quiz-info { }
+    .quiz-info h3 { font-size: 1.5rem; font-weight: 900; margin-bottom: 14px; }
+    .quiz-info p { color: rgba(255,255,255,0.70); margin-bottom: 22px; }
+    .quiz-bullet { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .quiz-bullet-icon { font-size: 1.1rem; margin-top: 1px; }
+    .quiz-bullet p { margin: 0; font-size: 0.93rem; }
+
+    /* ──────────────── UNIVERSITIES ──────────────── */
+    #universities { background: var(--white); }
+    .uni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
+    .uni-card {
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      padding: 24px 20px; text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      background: var(--white); cursor: default;
+    }
+    .uni-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); border-color: var(--navy); }
+    .uni-flag { font-size: 2rem; margin-bottom: 8px; }
+    .uni-card h4 { font-size: 0.97rem; font-weight: 800; margin-bottom: 4px; }
+    .uni-card p { font-size: 0.82rem; color: var(--grey); }
+    .uni-card .uni-rank {
+      display: inline-block; margin-top: 10px;
+      background: var(--light); border-radius: 50px;
+      padding: 3px 10px; font-size: 0.75rem; font-weight: 700; color: var(--navy);
+    }
+
+    /* ──────────────── SCHOLARSHIPS ──────────────── */
+    #scholarships { background: var(--light); }
+    .scholarship-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .scholarship-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 26px 24px;
+      border-left: 5px solid var(--red);
+    }
+    .scholarship-amount { font-size: 1.5rem; font-weight: 900; color: var(--red); }
+    .scholarship-name { font-size: 1.05rem; font-weight: 800; margin: 6px 0 4px; }
+    .scholarship-card p { font-size: 0.88rem; color: var(--grey); }
+    .scholarship-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+    .s-tag {
+      font-size: 0.75rem; font-weight: 700; padding: 3px 9px;
+      border-radius: 50px; border: 1px solid var(--border);
+      background: var(--light); color: var(--navy);
+    }
+
+    /* ──────────────── ESSAYS & INTERVIEWS ──────────────── */
+    #essays { background: var(--white); }
+    .essay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .essay-card {
+      background: var(--light); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 26px 22px;
+    }
+    .essay-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .essay-card ul { padding-left: 18px; }
+    .essay-card li { font-size: 0.90rem; color: var(--grey); margin-bottom: 5px; }
+
+    /* ──────────────── CHANCES CALCULATOR ──────────────── */
+    #calculator { background: var(--navy); color: #fff; text-align: center; }
+    #calculator .section-title { color: #fff; }
+    #calculator .section-sub { color: rgba(255,255,255,0.65); max-width: 520px; margin-inline: auto; }
+    .calc-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius); padding: 40px 32px;
+      max-width: 700px; margin: 0 auto; text-align: left;
+    }
+    .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+    @media (max-width: 600px) { .calc-row { grid-template-columns: 1fr; } }
+    .calc-field label {
+      display: block; font-size: 0.82rem; font-weight: 700;
+      color: rgba(255,255,255,0.65); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .calc-field input, .calc-field select {
+      width: 100%; background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 8px; padding: 10px 14px;
+      color: #fff; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .calc-field input::placeholder { color: rgba(255,255,255,0.35); }
+    .calc-field input:focus, .calc-field select:focus { border-color: var(--accent); }
+    .calc-field select option { background: var(--navy2); }
+    .calc-result {
+      background: rgba(232,184,75,0.12); border: 1.5px solid var(--accent);
+      border-radius: 10px; padding: 18px 22px; margin-top: 22px;
+      display: none;
+    }
+    .calc-result.visible { display: block; }
+    .calc-result-pct { font-size: 2.4rem; font-weight: 900; color: var(--accent); }
+    .calc-result p { color: rgba(255,255,255,0.75); font-size: 0.93rem; margin-top: 4px; }
+
+    /* ──────────────── EXTRACURRICULARS ──────────────── */
+    #extracurriculars { background: var(--light); }
+    .ec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    .ec-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 20px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .ec-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .ec-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .ec-card h4 { font-weight: 800; font-size: 0.97rem; margin-bottom: 6px; }
+    .ec-card p { font-size: 0.87rem; color: var(--grey); }
+    .ec-importance {
+      display: flex; align-items: center; gap: 4px; margin-top: 12px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot.filled { background: var(--red); }
+    .dot.empty { background: var(--border); }
+
+    /* ──────────────── TIMELINE ──────────────── */
+    #timeline { background: var(--white); }
+    .timeline { position: relative; max-width: 740px; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 20px; top: 0; bottom: 0; width: 3px;
+      background: var(--border);
+    }
+    .tl-item { display: flex; gap: 28px; margin-bottom: 32px; position: relative; }
+    .tl-dot {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--navy); border: 3px solid var(--white);
+      box-shadow: 0 0 0 3px var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 0.75rem; font-weight: 800;
+      flex-shrink: 0; z-index: 1;
+    }
+    .tl-dot.accent { background: var(--red); box-shadow: 0 0 0 3px var(--red); }
+    .tl-content { padding-top: 8px; }
+    .tl-content h4 { font-weight: 800; font-size: 0.97rem; }
+    .tl-content p { font-size: 0.87rem; color: var(--grey); margin-top: 4px; }
+
+    /* ──────────────── CTA BANNER ──────────────── */
+    #cta {
+      background: linear-gradient(135deg, var(--red), #8B0000);
+      color: #fff; text-align: center; padding: 80px 24px;
+    }
+    #cta h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: 14px; }
+    #cta p { font-size: 1.1rem; color: rgba(255,255,255,0.82); margin-bottom: 36px; }
+    #cta .btn-white {
+      background: #fff; color: var(--red);
+      padding: 14px 34px; border-radius: 10px;
+      font-size: 1rem; font-weight: 800;
+      text-decoration: none; display: inline-block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    #cta .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+
+    /* ──────────────── FOOTER ──────────────── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.55);
+      text-align: center; padding: 32px 24px;
+      font-size: 0.88rem;
+    }
+    footer strong { color: rgba(255,255,255,0.85); }
+
+    /* ──────────────── MODAL ──────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.55); align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 18px;
+      padding: 40px 36px; max-width: 500px; width: 90%;
+      position: relative; box-shadow: 0 12px 60px rgba(0,0,0,0.3);
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; font-size: 1.4rem;
+      cursor: pointer; color: var(--grey);
+    }
+    .modal h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; }
+    .modal p { color: var(--grey); font-size: 0.93rem; margin-bottom: 22px; }
+    .modal input, .modal select {
+      width: 100%; border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 0.95rem; margin-bottom: 12px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .modal input:focus, .modal select:focus { border-color: var(--navy); }
+    .modal .btn-primary { width: 100%; text-align: center; font-size: 1rem; }
+
+    /* ──────────────── RESPONSIVE ──────────────── */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav>
+  <a class="nav-logo" href="#"><span>Uni</span>Guide 🍁</a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#universities">Universities</a>
+    <a href="#scholarships">Funding</a>
+    <a href="#essays">Essays</a>
+    <a href="#calculator">Chances</a>
+    <a href="#" class="nav-cta" onclick="openModal(); return false;">Get Started Free</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge">🍁 Built for Canadian High School Students</div>
+  <h1>Your University Journey,<br><span>Finally Organized.</span></h1>
+  <p>UniGuide takes the stress out of Canadian university planning — from choosing your major to submitting your essays, all in one place.</p>
+  <div class="hero-buttons">
+    <a href="#" class="btn-primary" onclick="openModal(); return false;">Start My Plan — It's Free</a>
+    <a href="#how" class="btn-secondary">See How It Works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">97+</div>
+      <div class="stat-label">Canadian Universities</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Scholarships Listed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Planning Modules</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$0</div>
+      <div class="stat-label">Cost to Start</div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════ HOW IT WORKS ═══════════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">From confused to confident in 4 steps</h2>
+    <p class="section-sub">UniGuide walks you through every stage of university planning — no advisor needed.</p>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Take the Career Quiz</h3>
+        <p>Answer questions about your interests, strengths, and values. We match you with the best majors and career paths.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Find Your Universities</h3>
+        <p>Filter by province, program, tuition, campus size, co-op, and more. Save your favourites to your list.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Build Your Profile</h3>
+        <p>Track your grades, extracurriculars, volunteer work, and awards to see your competitive standing.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h3>Apply with Confidence</h3>
+        <p>Use our essay guides, deadline tracker, and scholarship finder to submit strong, complete applications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FEATURES ═══════════════════════════════ -->
+<section id="features">
+  <div class="container">
+    <div class="section-label">Everything You Need</div>
+    <h2 class="section-title">Every tool for university planning</h2>
+    <p class="section-sub">All 8 modules are designed to work together — your plan stays connected as you grow.</p>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">🧭</div>
+        <h3>Major & Career Matcher</h3>
+        <p>A detailed quiz that maps your personality, interests, and academic strengths to the most fitting university programs and career paths in Canada.</p>
+        <span class="feature-tag core">CORE</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏛️</div>
+        <h3>University Finder</h3>
+        <p>Compare 97+ Canadian universities side-by-side. Filter by program, province, tuition, co-op availability, campus culture, and acceptance rates.</p>
+        <span class="feature-tag core">CORE</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚽</div>
+        <h3>Extracurricular Planner</h3>
+        <p>Discover which clubs, sports, volunteering, and leadership roles strengthen your application. Get a personalized EC roadmap based on your target schools.</p>
+        <span class="feature-tag new">SMART MATCH</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Scholarship & Grants Hub</h3>
+        <p>Browse 500+ Canadian scholarships, bursaries, and grants. Filter by province, program, ethnicity, need-based, and merit-based. Never miss a deadline.</p>
+        <span class="feature-tag core">CORE</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">✍️</div>
+        <h3>Essay & Interview Prep</h3>
+        <p>Step-by-step essay frameworks, prompt breakdowns, sample outlines, and interview question banks. Polish your writing until it shines.</p>
+        <span class="feature-tag core">CORE</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Admission Chances Calculator</h3>
+        <p>Input your grades, activities, and school choice. Get a realistic probability estimate with tips to improve your standing for each university.</p>
+        <span class="feature-tag new">AI ESTIMATE</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Deadline & Application Tracker</h3>
+        <p>Stay on top of OUAC, BCCAT, and all provincial application portals. Set reminders for deadlines, required documents, and interviews.</p>
+        <span class="feature-tag new">TRACKER</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💸</div>
+        <h3>Cost of University Calculator</h3>
+        <p>Estimate total yearly costs — tuition, residence, meal plans, books, and living expenses — for any university in Canada to plan your finances.</p>
+        <span class="feature-tag new">PLANNER</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ QUIZ PREVIEW ═══════════════════════════════ -->
+<section id="quiz-preview">
+  <div class="container">
+    <div class="quiz-wrapper">
+      <div class="quiz-info">
+        <div class="section-label" style="color:var(--accent)">Career & Major Quiz</div>
+        <h3>Find what you're meant to do</h3>
+        <p>Our multi-dimensional quiz goes beyond "do you like math?" It maps your personality, values, work preferences, and strengths to real Canadian university programs.</p>
+        <div class="quiz-bullet">
+          <span class="quiz-bullet-icon">✅</span>
+          <p>50+ questions covering interests, skills, values, and work style</p>
+        </div>
+        <div class="quiz-bullet">
+          <span class="quiz-bullet-icon">✅</span>
+          <p>Matched to real Canadian programs: Engineering, Arts, Business, Health Sciences, and more</p>
+        </div>
+        <div class="quiz-bullet">
+          <span class="quiz-bullet-icon">✅</span>
+          <p>See career paths and average salaries for every recommended major</p>
+        </div>
+        <div class="quiz-bullet">
+          <span class="quiz-bullet-icon">✅</span>
+          <p>Retake anytime — your thinking evolves, and so should your plan</p>
+        </div>
+      </div>
+      <div class="quiz-ui">
+        <div class="quiz-progress">
+          <span style="font-size:0.82rem;color:rgba(255,255,255,0.55);font-weight:700;">QUESTION 1 OF 12 – SAMPLE</span>
+          <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+        </div>
+        <div class="quiz-question">When given a problem, I prefer to:</div>
+        <div class="quiz-option" onclick="selectOption(this)">🔬 Research and analyze data carefully</div>
+        <div class="quiz-option" onclick="selectOption(this)">💡 Brainstorm creative solutions freely</div>
+        <div class="quiz-option" onclick="selectOption(this)">🤝 Discuss and collaborate with others</div>
+        <div class="quiz-option" onclick="selectOption(this)">🛠️ Build or fix something hands-on</div>
+        <div class="quiz-nav">
+          <a href="#" class="btn-primary" onclick="openModal(); return false;">Start Full Quiz →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ UNIVERSITIES ═══════════════════════════════ -->
+<section id="universities">
+  <div class="container">
+    <div class="section-label">University Finder</div>
+    <h2 class="section-title">Top Canadian Universities, Organized for You</h2>
+    <p class="section-sub">Browse and compare. UniGuide tracks acceptance rates, tuition, co-op programs, and more.</p>
+    <div class="uni-grid">
+      <div class="uni-card">
+        <div class="uni-flag">🏫</div>
+        <h4>University of Toronto</h4>
+        <p>Toronto, Ontario</p>
+        <span class="uni-rank">#1 in Canada</span>
+      </div>
+      <div class="uni-card">
+        <div class="uni-flag">🏫</div>
+        <h4>University of British Columbia</h4>
+        <p>Vancouver, BC</p>
+        <span class="uni-rank">#2 in Canada</span>
+      </div>
+      <div class="uni-card">
+        <div class="uni-flag">🏫</div>
+        <h4>McGill University</h4>
+        <p>Montréal, Québec</p>
+        <span class="uni-rank">#3 in Canada</span>
+      </div>
+      <div class="uni-card">
+        <div class="uni-flag">🏫</div>
+        <h4>University of Waterloo</h4>
+        <p>Waterloo, Ontario</p>
+        <span class="uni-rank">Best Co-op</span>
+      </div>
+      <div class="uni-card">
+        <div class="uni-flag">🏫</div>
+        <h4>McMaster University</h4>
+        <p>Hamilton, Ontario</p>
+        <span class="uni-rank">Top Health Sci</span>
+      </div>
+      <div class="uni-card">
+        <div class="uni-flag">🏫</div>
+        <h4>Queen's University</h4>
+        <p>Kingston, Ontario</p>
+        <span class="uni-rank">Top Business</span>
+      </div>
+      <div class="uni-card">
+        <div class="uni-flag">🏫</div>
+        <h4>University of Alberta</h4>
+        <p>Edmonton, Alberta</p>
+        <span class="uni-rank">#4 in Canada</span>
+      </div>
+      <div class="uni-card">
+        <div class="uni-flag">🏫</div>
+        <h4>Dalhousie University</h4>
+        <p>Halifax, Nova Scotia</p>
+        <span class="uni-rank">Best East Coast</span>
+      </div>
+      <div class="uni-card" style="border:2px dashed var(--border);background:var(--light);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="font-size:1.8rem;">+89 more</div>
+        <p style="font-size:0.85rem;color:var(--grey);margin-top:6px;">View full database</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SCHOLARSHIPS ═══════════════════════════════ -->
+<section id="scholarships">
+  <div class="container">
+    <div class="section-label">Funding & Money</div>
+    <h2 class="section-title">Don't leave money on the table</h2>
+    <p class="section-sub">UniGuide tracks scholarships, bursaries, and government grants across every province — and alerts you before deadlines.</p>
+    <div class="scholarship-grid">
+      <div class="scholarship-card">
+        <div class="scholarship-amount">$35,000</div>
+        <div class="scholarship-name">Loran Award</div>
+        <p>Canada's most prestigious undergraduate scholarship for character, service, and leadership.</p>
+        <div class="scholarship-tags">
+          <span class="s-tag">Merit-Based</span>
+          <span class="s-tag">National</span>
+          <span class="s-tag">All Programs</span>
+        </div>
+      </div>
+      <div class="scholarship-card">
+        <div class="scholarship-amount">$7,500/yr</div>
+        <div class="scholarship-name">TD Scholarship for Community Leadership</div>
+        <p>For students with demonstrated community involvement and academic achievement.</p>
+        <div class="scholarship-tags">
+          <span class="s-tag">Merit-Based</span>
+          <span class="s-tag">Renewable</span>
+        </div>
+      </div>
+      <div class="scholarship-card">
+        <div class="scholarship-amount">Up to $10,000</div>
+        <div class="scholarship-name">Canada Student Grant</div>
+        <p>Federal need-based grant for low and middle-income students — no repayment required.</p>
+        <div class="scholarship-tags">
+          <span class="s-tag">Need-Based</span>
+          <span class="s-tag">Federal</span>
+          <span class="s-tag">Non-Repayable</span>
+        </div>
+      </div>
+      <div class="scholarship-card">
+        <div class="scholarship-amount">$5,000</div>
+        <div class="scholarship-name">RBC Future Launch Scholarship</div>
+        <p>Supporting young Canadians in building skills and accessing post-secondary education.</p>
+        <div class="scholarship-tags">
+          <span class="s-tag">Merit-Based</span>
+          <span class="s-tag">STEM Friendly</span>
+        </div>
+      </div>
+      <div class="scholarship-card">
+        <div class="scholarship-amount">$12,000</div>
+        <div class="scholarship-name">Schulich Leader Scholarship</div>
+        <p>For students entering STEM programs with proven leadership and entrepreneurial spirit.</p>
+        <div class="scholarship-tags">
+          <span class="s-tag">STEM</span>
+          <span class="s-tag">Leadership</span>
+          <span class="s-tag">National</span>
+        </div>
+      </div>
+      <div class="scholarship-card">
+        <div class="scholarship-amount">Varies</div>
+        <div class="scholarship-name">Provincial Grants (OSAP, StudentAid BC…)</div>
+        <p>Every province has grants and bursaries. UniGuide shows you exactly what you qualify for.</p>
+        <div class="scholarship-tags">
+          <span class="s-tag">Provincial</span>
+          <span class="s-tag">Need-Based</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ ESSAYS & INTERVIEWS ═══════════════════════════════ -->
+<section id="essays">
+  <div class="container">
+    <div class="section-label">Essays & Interviews</div>
+    <h2 class="section-title">Write essays that actually get you in</h2>
+    <p class="section-sub">Structured guides, real prompts, and frameworks — no guessing, no fluff.</p>
+    <div class="essay-grid">
+      <div class="essay-card">
+        <h3>📝 Personal Statement Guide</h3>
+        <ul>
+          <li>How to choose your central story</li>
+          <li>Hook → Body → Reflection framework</li>
+          <li>Common mistakes to avoid</li>
+          <li>Word count strategies</li>
+          <li>Sample outlines by program type</li>
+        </ul>
+      </div>
+      <div class="essay-card">
+        <h3>🎓 Supplemental Essays</h3>
+        <ul>
+          <li>"Why this university?" templates</li>
+          <li>"Why this program?" breakdowns</li>
+          <li>Waterloo AIF (Admission Info Form) guide</li>
+          <li>McMaster & Queens special essays</li>
+          <li>Program-specific tips</li>
+        </ul>
+      </div>
+      <div class="essay-card">
+        <h3>🎤 Interview Prep</h3>
+        <ul>
+          <li>McMaster MMI question bank</li>
+          <li>Common panel interview questions</li>
+          <li>STAR method practice templates</li>
+          <li>How to talk about extracurriculars</li>
+          <li>Post-interview follow-up tips</li>
+        </ul>
+      </div>
+      <div class="essay-card">
+        <h3>✅ Application Checklist</h3>
+        <ul>
+          <li>OUAC 101 & 105 step-by-step</li>
+          <li>Required documents per university</li>
+          <li>Reference letter request guide</li>
+          <li>Transcript ordering timeline</li>
+          <li>Submission confirmation checklist</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CALCULATOR ═══════════════════════════════ -->
+<section id="calculator">
+  <div class="container">
+    <div class="section-label" style="color:var(--accent)">Admission Chances</div>
+    <h2 class="section-title">What are your real chances?</h2>
+    <p class="section-sub">Enter your profile and get a realistic estimate of your admission probability — plus tips to improve it.</p>
+    <div class="calc-box">
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Your Grade Average (%)</label>
+          <input type="number" id="avgGrade" min="50" max="100" placeholder="e.g. 88" />
+        </div>
+        <div class="calc-field">
+          <label>Target University</label>
+          <select id="targetUni">
+            <option value="">Select a university…</option>
+            <option value="uoft">University of Toronto</option>
+            <option value="ubc">University of British Columbia</option>
+            <option value="mcgill">McGill University</option>
+            <option value="waterloo">University of Waterloo</option>
+            <option value="mcmaster">McMaster University</option>
+            <option value="queens">Queen's University</option>
+            <option value="western">Western University</option>
+            <option value="alberta">University of Alberta</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Target Program</label>
+          <select id="targetProgram">
+            <option value="">Select a program…</option>
+            <option value="eng">Engineering</option>
+            <option value="cs">Computer Science</option>
+            <option value="bus">Business / Commerce</option>
+            <option value="health">Health Sciences</option>
+            <option value="arts">Arts & Humanities</option>
+            <option value="sci">Sciences</option>
+            <option value="law">Pre-Law</option>
+            <option value="edu">Education</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Extracurriculars (# of Activities)</label>
+          <input type="number" id="ecCount" min="0" max="20" placeholder="e.g. 5" />
+        </div>
+      </div>
+      <button class="btn-primary" onclick="calculateChances()" style="width:100%;font-size:1rem;">Calculate My Chances →</button>
+      <div class="calc-result" id="calcResult">
+        <div class="calc-result-pct" id="resultPct">—</div>
+        <p id="resultMsg">—</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ EXTRACURRICULARS ═══════════════════════════════ -->
+<section id="extracurriculars">
+  <div class="container">
+    <div class="section-label">Extracurriculars</div>
+    <h2 class="section-title">Build a profile that stands out</h2>
+    <p class="section-sub">Not all extracurriculars are equal. UniGuide shows you which ones matter most — and helps you track your involvement.</p>
+    <div class="ec-grid">
+      <div class="ec-card">
+        <div class="ec-icon">🏛️</div>
+        <h4>Student Government / Leadership</h4>
+        <p>Highest weight for Business, Law, and Arts programs at most Canadian universities.</p>
+        <div class="ec-importance">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+          <span style="font-size:0.78rem;color:var(--grey);margin-left:6px;">Very High Impact</span>
+        </div>
+      </div>
+      <div class="ec-card">
+        <div class="ec-icon">🔬</div>
+        <h4>Research or Lab Work</h4>
+        <p>Critical for Science, Health Sciences, and Engineering applicants. Shows academic initiative.</p>
+        <div class="ec-importance">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+          <span style="font-size:0.78rem;color:var(--grey);margin-left:6px;">Very High Impact</span>
+        </div>
+      </div>
+      <div class="ec-card">
+        <div class="ec-icon">🤝</div>
+        <h4>Volunteering & Community Service</h4>
+        <p>Strong across all programs. Required for many scholarships. Shows character.</p>
+        <div class="ec-importance">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot empty"></div>
+          <span style="font-size:0.78rem;color:var(--grey);margin-left:6px;">High Impact</span>
+        </div>
+      </div>
+      <div class="ec-card">
+        <div class="ec-icon">🎭</div>
+        <h4>Arts, Music & Drama</h4>
+        <p>Valued for showing well-roundedness. Essential for Fine Arts, Drama, and Education programs.</p>
+        <div class="ec-importance">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot empty"></div><div class="dot empty"></div>
+          <span style="font-size:0.78rem;color:var(--grey);margin-left:6px;">Medium Impact</span>
+        </div>
+      </div>
+      <div class="ec-card">
+        <div class="ec-icon">⚽</div>
+        <h4>Varsity & Competitive Sports</h4>
+        <p>Demonstrates discipline, time management, and teamwork. Strong for all programs.</p>
+        <div class="ec-importance">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot empty"></div><div class="dot empty"></div>
+          <span style="font-size:0.78rem;color:var(--grey);margin-left:6px;">Medium Impact</span>
+        </div>
+      </div>
+      <div class="ec-card">
+        <div class="ec-icon">💻</div>
+        <h4>Coding Projects & Hackathons</h4>
+        <p>Gold standard for CS and Engineering. Build a GitHub portfolio and enter local competitions.</p>
+        <div class="ec-importance">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+          <span style="font-size:0.78rem;color:var(--grey);margin-left:6px;">Very High Impact</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ TIMELINE ═══════════════════════════════ -->
+<section id="timeline">
+  <div class="container">
+    <div class="section-label">Application Timeline</div>
+    <h2 class="section-title">Never miss a critical deadline</h2>
+    <p class="section-sub">UniGuide maps out every milestone from Grade 9 through to your acceptance.</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">Gr.9</div>
+        <div class="tl-content">
+          <h4>Explore Interests & Start Building ECs</h4>
+          <p>Join clubs, try new activities. This is your discovery phase — experiment widely.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">Gr.10</div>
+        <div class="tl-content">
+          <h4>Focus Your Extracurriculars</h4>
+          <p>Narrow down to 3–5 meaningful activities. Take leadership where possible. Start volunteering.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">Gr.11</div>
+        <div class="tl-content">
+          <h4>Research Universities & Programs</h4>
+          <p>Use UniGuide's University Finder. Attend open houses. Identify prerequisite courses. Take the career quiz.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot accent">Sept</div>
+        <div class="tl-content">
+          <h4>Grade 12 Begins — Application Season Starts</h4>
+          <p>Finalize your program/university list (max 3 reaches, 2 targets, 2 safeties). Begin essay drafting.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot accent">Nov</div>
+        <div class="tl-content">
+          <h4>Submit OUAC / BCCAT Applications</h4>
+          <p>Applications open in Ontario (OUAC) and BC. Submit early for best consideration.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot accent">Jan</div>
+        <div class="tl-content">
+          <h4>Scholarship Applications Due</h4>
+          <p>Most major scholarship deadlines fall in January. Apply to every scholarship you qualify for.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot accent">Mar</div>
+        <div class="tl-content">
+          <h4>Offers Begin Arriving</h4>
+          <p>Conditional and early offers come in. Track them in your UniGuide dashboard. Don't commit yet — wait for all offers.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--accent);color:var(--navy);box-shadow:0 0 0 3px var(--accent);">June</div>
+        <div class="tl-content">
+          <h4>Accept Your Offer & Celebrate 🎉</h4>
+          <p>Confirm your spot by the deadline (usually June 1 in Ontario). Request final transcripts. You did it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CTA ═══════════════════════════════ -->
+<section id="cta">
+  <div class="container">
+    <h2>Your future starts with one step.</h2>
+    <p>Join thousands of Canadian students using UniGuide to plan smarter, apply stronger, and stress less.</p>
+    <a href="#" class="btn-white" onclick="openModal(); return false;">Create My Free Account →</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer>
+  <strong>UniGuide 🍁</strong> — Canadian University Planning Platform<br>
+  <span style="display:block;margin-top:6px;">Built for Canadian high school students. Free to use. No consultants, no gatekeeping.</span>
+</footer>
+
+<!-- ═══════════════════════════════ SIGN-UP MODAL ═══════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>Create Your Free Account</h2>
+    <p>Start your personalized university plan in under 2 minutes.</p>
+    <input type="text" placeholder="Your Name" />
+    <input type="email" placeholder="Email Address" />
+    <select>
+      <option value="">Current Grade Level</option>
+      <option>Grade 9</option>
+      <option>Grade 10</option>
+      <option>Grade 11</option>
+      <option>Grade 12</option>
+    </select>
+    <select>
+      <option value="">Your Province</option>
+      <option>Ontario</option>
+      <option>British Columbia</option>
+      <option>Alberta</option>
+      <option>Quebec</option>
+      <option>Nova Scotia</option>
+      <option>Other</option>
+    </select>
+    <a href="#" class="btn-primary" style="display:block;text-align:center;margin-top:6px;">Start My Free Plan →</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SCRIPTS ═══════════════════════════════ -->
+<script>
+  // Quiz option selector
+  function selectOption(el) {
+    document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Modal
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Admission Chances Calculator
+  function calculateChances() {
+    const grade = parseFloat(document.getElementById('avgGrade').value);
+    const uni   = document.getElementById('targetUni').value;
+    const prog  = document.getElementById('targetProgram').value;
+    const ec    = parseInt(document.getElementById('ecCount').value) || 0;
+
+    if (!grade || !uni || !prog) {
+      alert('Please fill in your grade, university, and program to calculate your chances.');
+      return;
+    }
+
+    // Base thresholds (simplified illustrative model)
+    const thresholds = {
+      uoft:     { eng: 95, cs: 95, bus: 90, health: 94, arts: 82, sci: 90, law: 85, edu: 78 },
+      ubc:      { eng: 93, cs: 93, bus: 88, health: 92, arts: 80, sci: 88, law: 83, edu: 76 },
+      mcgill:   { eng: 92, cs: 91, bus: 87, health: 91, arts: 81, sci: 88, law: 84, edu: 77 },
+      waterloo: { eng: 93, cs: 96, bus: 88, health: 89, arts: 78, sci: 87, law: 80, edu: 75 },
+      mcmaster: { eng: 88, cs: 88, bus: 86, health: 94, arts: 78, sci: 87, law: 82, edu: 76 },
+      queens:   { eng: 87, cs: 87, bus: 88, health: 88, arts: 80, sci: 86, law: 83, edu: 77 },
+      western:  { eng: 87, cs: 87, bus: 88, health: 90, arts: 79, sci: 85, law: 82, edu: 76 },
+      alberta:  { eng: 83, cs: 83, bus: 82, health: 86, arts: 74, sci: 82, law: 79, edu: 73 },
+    };
+
+    const req = thresholds[uni]?.[prog] || 80;
+    const diff = grade - req;
+    let base = 50 + diff * 4;
+    base += Math.min(ec, 10) * 1.5;
+    base = Math.max(5, Math.min(97, Math.round(base)));
+
+    let msg = '';
+    if (base >= 80) msg = 'Strong candidate! Keep your grades up and polish your essays.';
+    else if (base >= 55) msg = 'Competitive range. Strengthen your extracurriculars and write a standout application.';
+    else if (base >= 30) msg = 'Challenging but possible. Consider improving your average or adding strong ECs.';
+    else msg = 'This school may be a reach. Keep it as a dream school and apply to safer alternatives too.';
+
+    document.getElementById('resultPct').textContent = base + '%';
+    document.getElementById('resultMsg').textContent = msg;
+    document.getElementById('calcResult').classList.add('visible');
+  }
+</script>
+
+</body>
+</html>
